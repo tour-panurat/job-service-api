@@ -1,0 +1,116 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """The unique identifier for the user"""
+  _id: ID!
+
+  """The username of the user, used for authentication"""
+  username: String!
+
+  """
+  The role of the user, either "applicant" or "company"
+  """
+  role: Role!
+
+  """The name of the company the user represents (only for company role)"""
+  companyName: String!
+}
+
+enum Role {
+  APPLICANT
+  COMPANY
+}
+
+type AccessTokenOutput {
+  access_token: String!
+}
+
+type Job {
+  """The unique identifier for the job listing"""
+  _id: ID!
+
+  """The title of the job"""
+  title: String!
+
+  """The description of the job"""
+  description: String!
+
+  """The status of the job listing, indicating whether it is open or closed"""
+  isOpen: Boolean!
+}
+
+type PaginatedJobs {
+  jobs: [Job!]!
+  totalPages: Int!
+}
+
+type Application {
+  """The unique identifier for the job application"""
+  _id: ID!
+
+  """The user who applied for the job"""
+  user: User!
+
+  """The job for which the application is made"""
+  job: Job!
+
+  """The status of the job application"""
+  status: ApplicationStatus!
+
+  """The cover letter provided by the applicant"""
+  coverLetter: String!
+
+  """The user who reviewed the application, if any"""
+  reviewer: User
+}
+
+enum ApplicationStatus {
+  PENDING
+  REJECTED
+  HIRED
+}
+
+type Query {
+  jobListings(page: Int! = 1, limit: Int! = 10): PaginatedJobs!
+  getJobsApply: [Application!]!
+  findApplicationsByJobId(jobId: ID!): [Application!]!
+}
+
+type Mutation {
+  registerApplicate(data: RegisterApplicateInput!): AccessTokenOutput!
+  registerCompany(data: RegisterCompanyInput!): AccessTokenOutput!
+  login(data: LoginInput!): AccessTokenOutput!
+  createJob(title: String!, description: String!): Job!
+  activeJob(id: String!): Job!
+  closeJob(id: String!): Job!
+  applyForJob(createApplicationInput: CreateApplicationInput!): Application!
+  updateApplicationStatus(updateApplicationInput: UpdateApplicationInput!): Application!
+}
+
+input RegisterApplicateInput {
+  username: String!
+  password: String!
+}
+
+input RegisterCompanyInput {
+  username: String!
+  password: String!
+  companyName: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+input CreateApplicationInput {
+  jobId: String!
+  coverLetter: String!
+}
+
+input UpdateApplicationInput {
+  applicationId: ID!
+  status: ApplicationStatus!
+}
