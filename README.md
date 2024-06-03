@@ -35,10 +35,11 @@ This service provides functionality for:
 ### Environment Variables
 
 Create a `.env` file in the root of the project and add the following environment variables:
+```bash
 MONGODB_URI=mongodb://mongo:27017/job-db
 PORT=3000
 JWT_SECRET=your_jwt_secret_key
-
+```
 
 ### Docker Setup
 
@@ -48,7 +49,7 @@ JWT_SECRET=your_jwt_secret_key
     ```
 
    This will start two services:
-   - **app**: The Nest.js application running on port 3000
+   - **app**: The Nest.js application running on port 3000 running on `http://localhost:3000/graphql`
    - **mongo**: The MongoDB database running on port 27017
 
 2. To stop the containers:
@@ -58,10 +59,15 @@ JWT_SECRET=your_jwt_secret_key
 
 ### Local Development
 
-1. Start the Nest.js server:
+1. Start the MongoDB database:
+    ```bash
+    docker-compose up mong -d
+    ```
+
+2. Start the Nest.js server:
     ```bash
     npm run start:dev
     ```
 
-2. The server will be running on `http://localhost:3000/graphql`.
+3. The server will be running on `http://localhost:3000/graphql`.
 
