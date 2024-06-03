@@ -1,4 +1,4 @@
-# job-service-api# Job Application Service
+# Job Application Service
 
 A backend service for a job application website built with Nest.js, GraphQL, and MongoDB.
 
@@ -38,7 +38,6 @@ Create a `.env` file in the root of the project and add the following environmen
 ```bash
 MONGODB_URI=mongodb://mongo:27017/job-db
 PORT=3000
-JWT_SECRET=your_jwt_secret_key
 ```
 
 ### Docker Setup
